@@ -1,0 +1,25 @@
+name: InyakSimulator
+version: Alpha-0.0.1
+main: com.ddang_.inyaksimulator.Inyaksimulator
+authors: [ DDang_ ]
+description: Minecraft inseangyaktal (life looting, like faction) main system for 1.12.2 bukkit server
+website: https://github.com/I-am-ddang
+depend:
+  - Kotlin
+commands:
+  fix:
+    description: Item fix command
+  gm:
+    description: gamemode change command
+  info:
+    description: get player's info command
+  s:
+    description: tp target to me command
+  setspawn:
+    description: set spawn command
+  spawn:
+    description: spawn command
+  tp:
+    description: tp to target command
+  warp:
+    description: warp command
