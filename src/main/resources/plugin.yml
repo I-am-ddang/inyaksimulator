@@ -23,3 +23,5 @@ commands:
     description: tp to target command
   warp:
     description: warp command
+  isreload:
+    description: reload config command

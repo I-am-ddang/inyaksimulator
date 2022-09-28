@@ -35,14 +35,7 @@ class GameConfigManager {
         private fun getSpawnLoc(): Location {
             //w
 
-            val worldFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.world") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.world 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val worldFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.world")
 
             val w = Bukkit.getWorld(worldFromConfig) ?: kotlin.run {
                 ("").warn()
@@ -55,14 +48,7 @@ class GameConfigManager {
 
             //x
 
-            val xFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.x") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.x 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val xFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.x")
 
             val x = xFromConfig.toDoubleOrNull() ?: kotlin.run {
                 ("").warn()
@@ -75,14 +61,7 @@ class GameConfigManager {
 
             //y
 
-            val yFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.y") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.y 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val yFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.y")
 
             val y = yFromConfig.toDoubleOrNull() ?: kotlin.run {
                 ("").warn()
@@ -95,14 +74,7 @@ class GameConfigManager {
 
             //z
 
-            val zFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.z") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.z 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val zFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.z")
 
             val z = zFromConfig.toDoubleOrNull() ?: kotlin.run {
                 ("").warn()
@@ -115,14 +87,7 @@ class GameConfigManager {
 
             //pitch
 
-            val pitchFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.pitch") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.pitch 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val pitchFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.pitch")
 
             val pitch = pitchFromConfig.toFloatOrNull() ?: kotlin.run {
                 ("").warn()
@@ -135,14 +100,7 @@ class GameConfigManager {
 
             //yaw
 
-            val yawFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.yaw") ?: kotlin.run {
-                ("").warn()
-                ("[오류] config.yml 파일 -> Loc.spawn.yaw 에 입력된 값이 없습니다.").warn()
-                return Location(
-                    Bukkit.getWorld("world"),
-                    0.0, 60.0, 0.0
-                )
-            }
+            val yawFromConfig = Inyaksimulator.instance.config.getString("Loc.spawn.yaw")
 
             val yaw = yawFromConfig.toFloatOrNull() ?: kotlin.run {
                 ("").warn()
