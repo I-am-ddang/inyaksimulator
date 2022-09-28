@@ -28,6 +28,12 @@ class SpawnCommand: CommandExecutor {
             return false
         }
 
+        if (p.isOp) {
+            p.teleport(Inyaksimulator.gameConfig.spawnLoc)
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.spawn.done"))
+            return false
+        }
+
         val m = MemberManager.getMember(p.name) ?: return false
         val spawnGoTimeFromConfig = Inyaksimulator.instance.config.getString("Spawn.goTime")
 
