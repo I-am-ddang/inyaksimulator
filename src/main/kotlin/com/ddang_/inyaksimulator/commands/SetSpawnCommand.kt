@@ -21,10 +21,6 @@ class SetSpawnCommand: CommandExecutor {
             return false
         }
 
-        if (!p.isOp) {
-            return false
-        }
-
         val arg = args ?: return false
 
         if (arg.isNotEmpty()) {

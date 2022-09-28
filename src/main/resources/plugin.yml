@@ -11,21 +11,27 @@ commands:
     description: Item fix command
   gm:
     description: gamemode change command
+    permission: inyak.gm
   info:
     description: get player's info command
   s:
     description: tp target to me command
   setspawn:
     description: set spawn command
+    permission: inyak.setspawn
   spawn:
     description: spawn command
   tp:
     description: tp to target command
   warp:
     description: warp command
+    permission: inyak.warp
   isreload:
     description: reload config command
+    permission: inyak.isreload
   setwarp:
     description: setwarp command
+    permission: inyak.setwarp
   lore:
     description: lore set command
+    permission: inyak.lore

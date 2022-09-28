@@ -8,6 +8,7 @@ import com.ddang_.inyaksimulator.listeners.player.JoinQuitListener
 import com.ddang_.inyaksimulator.managers.ConfigManager
 import com.ddang_.inyaksimulator.managers.GameConfigManager
 import com.ddang_.inyaksimulator.managers.MemberManager
+import com.ddang_.inyaksimulator.managers.WarpManager
 import com.ddang_.inyaksimulator.objects.GameConfig
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -57,6 +58,13 @@ class Inyaksimulator : JavaPlugin() {
     private fun saveMembers() {
         players.forEach {
             MemberManager.save(it)
+        }
+    }
+
+    //워프 세이브
+    private fun saveWarps() {
+        WarpManager.warpList.forEach {
+            WarpManager.save(it)
         }
     }
 
@@ -148,6 +156,9 @@ class Inyaksimulator : JavaPlugin() {
 
         //멤버 셋
         setMembers()
+
+        //워프
+        WarpManager.setUp()
     }
 
     override fun onDisable() {
@@ -157,5 +168,8 @@ class Inyaksimulator : JavaPlugin() {
 
         //멤버 세이브
         saveMembers()
+
+        //워프
+        saveWarps()
     }
 }
