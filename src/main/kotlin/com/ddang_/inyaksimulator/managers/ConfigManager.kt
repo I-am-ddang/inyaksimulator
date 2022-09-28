@@ -8,6 +8,7 @@ class ConfigManager {
             val config = Inyaksimulator.instance.config
 
             config.addDefault("Message.fix.done", "  §a§l보관함 수리 §f보관함 내 모든 아이템 수리가 완료되었습니다.")
+            config.addDefault("Message.fix.no", "  §c§l보관함 수리 §f보관함 내에 수리할 아이템이 없습니다.")
 
             config.addDefault("Message.reload.done", "  §a§l콘피그 리로드 §f콘피그 리로드가 완료되었습니다.")
 

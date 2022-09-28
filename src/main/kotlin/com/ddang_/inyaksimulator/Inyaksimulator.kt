@@ -1,7 +1,9 @@
 package com.ddang_.inyaksimulator
 
 import com.ddang_.inyaksimulator.commands.*
+import com.ddang_.inyaksimulator.listeners.DamageByListener
 import com.ddang_.inyaksimulator.listeners.inventory.ClickListener
+import com.ddang_.inyaksimulator.listeners.player.DamageListener
 import com.ddang_.inyaksimulator.listeners.player.JoinQuitListener
 import com.ddang_.inyaksimulator.managers.ConfigManager
 import com.ddang_.inyaksimulator.managers.GameConfigManager
@@ -102,7 +104,9 @@ class Inyaksimulator : JavaPlugin() {
     //이벤트 리스너 목록입니다.
     private val events = arrayOf(
         ClickListener(),
-        JoinQuitListener()
+        JoinQuitListener(),
+        DamageListener(),
+        DamageByListener()
     )
 
     override fun onEnable() {
@@ -136,6 +140,8 @@ class Inyaksimulator : JavaPlugin() {
         getCommand("tp")?.executor = TPCommand()
         getCommand("warp")?.executor = WarpCommand()
         getCommand("isreload")?.executor = ReloadConfigCommand()
+        getCommand("setwarp")?.executor = SetwarpCommand()
+        getCommand("lore")?.executor = LoreCommand()
 
         //스폰 메커니즘
         spawnMechanism()

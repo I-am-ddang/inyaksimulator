@@ -25,3 +25,7 @@ commands:
     description: warp command
   isreload:
     description: reload config command
+  setwarp:
+    description: setwarp command
+  lore:
+    description: lore set command
