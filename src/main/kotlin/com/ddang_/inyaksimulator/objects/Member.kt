@@ -7,7 +7,9 @@ class Member (
 
     val name: String,
     var spawnCount: Int,
-    var recallLocation: Location?
+    var recallLocation: Location?,
+
+    var loreStat: LoreStat
 
     ) {
     init {

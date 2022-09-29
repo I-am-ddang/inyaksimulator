@@ -1,11 +1,14 @@
 package com.ddang_.inyaksimulator.commands
 
+import com.ddang_.inyaksimulator.Inyaksimulator
+import com.ddang_.inyaksimulator.managers.MemberManager
 import com.ddang_.inyaksimulator.managers.WarpManager
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.EquipmentSlot
 
 class InfoComand: CommandExecutor {
     override fun onCommand(
@@ -25,10 +28,36 @@ class InfoComand: CommandExecutor {
 
         if (arg.isEmpty()) {
 
+            val m = MemberManager.getMember(p.name) ?: return false
+
             p.sendMessage("")
             p.sendMessage("§6§l  정보 확인 §f/i §7[<player>] 부분 입력하면 해당 플레이어의 정보를 봅니다.")
-            p.sendMessage("§6§l          정보 확인 §f: §6${p.name}")
-            p.sendMessage("§f")
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.title").replace("%playerName%", p.name))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.helmetName").replace("%itemName%",
+                p.inventory.getItem(EquipmentSlot.HEAD)?.itemMeta?.displayName ?: "없음"
+            ))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.chestplateName").replace("%itemName%",
+                p.inventory.getItem(EquipmentSlot.CHEST)?.itemMeta?.displayName ?: "없음"
+            ))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.leggingsName").replace("%itemName%",
+                p.inventory.getItem(EquipmentSlot.LEGS)?.itemMeta?.displayName ?: "없음"
+            ))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.bootsName").replace("%itemName%",
+                p.inventory.getItem(EquipmentSlot.FEET)?.itemMeta?.displayName ?: "없음"
+            ))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.swordName").replace("%itemName%",
+                p.inventory.getItem(EquipmentSlot.HAND)?.itemMeta?.displayName ?: "없음"
+            ))
+            p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.totalStatTop"))
+            p.sendMessage(
+                Inyaksimulator.instance.config.getString("Message.info.totalStatBelow")
+                    .replace("%attack%", "${m.loreStat.attack}")
+                    .replace("%defence%", "${m.loreStat.defence}")
+                    .replace("%health%", "${m.loreStat.moreHealth}")
+                    .replace("%drainChance%", "${m.loreStat.healthDrainChance}")
+                    .replace("%drainAmount%", "${m.loreStat.healthDrainAmount}")
+            )
+
 
             return false
         }
@@ -42,7 +71,23 @@ class InfoComand: CommandExecutor {
                     return false
                 }
 
-                p.sendMessage("§a§l  정보 확인 §f: §6${target.name}")
+                val m = MemberManager.getMember(target.name) ?: return false
+
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.title").replace("%playerName%", target.name))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.helmetName").replace("%itemName%", "${target.inventory.getItem(EquipmentSlot.HEAD).itemMeta?.displayName}"))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.chestplateName").replace("%itemName%", "${target.inventory.getItem(EquipmentSlot.CHEST).itemMeta?.displayName}"))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.leggingsName").replace("%itemName%", "${target.inventory.getItem(EquipmentSlot.LEGS).itemMeta?.displayName}"))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.bootsName").replace("%itemName%", "${target.inventory.getItem(EquipmentSlot.FEET).itemMeta?.displayName}"))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.swordName").replace("%itemName%", "${target.inventory.getItem(EquipmentSlot.HAND).itemMeta?.displayName}"))
+                p.sendMessage(Inyaksimulator.instance.config.getString("Message.info.totalStatTop"))
+                p.sendMessage(
+                    Inyaksimulator.instance.config.getString("Message.info.totalStatBelow")
+                        .replace("%attack%", "${m.loreStat.attack}")
+                        .replace("%defence%", "${m.loreStat.defence}")
+                        .replace("%health%", "${m.loreStat.moreHealth}")
+                        .replace("%drainChance%", "${m.loreStat.healthDrainChance}")
+                        .replace("%drainAmount%", "${m.loreStat.healthDrainAmount}")
+                )
 
             }
             else -> {

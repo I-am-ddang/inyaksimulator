@@ -11,7 +11,9 @@ import com.ddang_.inyaksimulator.managers.MemberManager
 import com.ddang_.inyaksimulator.managers.WarpManager
 import com.ddang_.inyaksimulator.objects.GameConfig
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitScheduler
@@ -65,6 +67,81 @@ class Inyaksimulator : JavaPlugin() {
     private fun saveWarps() {
         WarpManager.warpList.forEach {
             WarpManager.save(it)
+        }
+    }
+
+    //로어 스탯 메커니즘
+    private fun loreMechanism() {
+        (1L).rt {
+            players.forEach {
+
+                val m = MemberManager.getMember(it.name) ?: return@forEach
+
+                val affectedLoreStatList = arrayListOf<ItemStack>()
+
+                for (armor in it.inventory.armorContents) {
+                    affectedLoreStatList.add(armor)
+                }
+                affectedLoreStatList.add(it.inventory.itemInMainHand)
+
+                var STAT_ATTACK = 0
+                var STAT_DEFENCE = 0
+                var STAT_MORE_HEALTH = 0
+                var STAT_HEALTH_DRAIN_CHANGE = 0
+                var STAT_HEALTH_DRAIN_AMOUNT = 0
+
+                for (item in affectedLoreStatList) {
+                    val lore = item.itemMeta?.lore ?: continue
+
+                    for (line in lore) {
+                        if (line.contains("공격력")) {
+                            ChatColor.stripColor(line)
+
+                            val numberOnly = line.replace(Regex("[^0-9]"), "")
+                            val int = numberOnly.toIntOrNull() ?: continue
+                            STAT_ATTACK += int
+
+                        } else if (line.contains("방어력")) {
+                            ChatColor.stripColor(line)
+                            val numberOnly = line.replace(Regex("[^0-9]"), "")
+                            val int = numberOnly.toIntOrNull() ?: continue
+                            STAT_DEFENCE += int
+
+                        } else if (line.contains("체력")) {
+                            ChatColor.stripColor(line)
+                            val numberOnly = line.replace(Regex("[^0-9]"), "")
+                            val int = numberOnly.toIntOrNull() ?: continue
+                            STAT_MORE_HEALTH += int
+
+                        } else if (line.contains("흡혈률")) {
+                            ChatColor.stripColor(line)
+                            val numberOnly = line.replace(Regex("[^0-9]"), "")
+                            val int = numberOnly.toIntOrNull() ?: continue
+                            STAT_HEALTH_DRAIN_CHANGE += int
+
+                        } else if (line.contains("흡혈량")) {
+                            ChatColor.stripColor(line)
+                            val numberOnly = line.replace(Regex("[^0-9]"), "")
+                            val int = numberOnly.toIntOrNull() ?: continue
+                            STAT_HEALTH_DRAIN_AMOUNT += int
+                        }
+                    }
+                }
+
+                //제한 범위 내로 깎기
+                if (STAT_DEFENCE >= 100) {
+                    STAT_DEFENCE = 100
+                }
+                if (STAT_HEALTH_DRAIN_CHANGE >= 100) {
+                    STAT_HEALTH_DRAIN_CHANGE = 100
+                }
+
+                m.loreStat.attack = STAT_ATTACK
+                m.loreStat.defence = STAT_DEFENCE
+                m.loreStat.moreHealth = STAT_MORE_HEALTH
+                m.loreStat.healthDrainChance = STAT_HEALTH_DRAIN_CHANGE
+                m.loreStat.healthDrainAmount = STAT_HEALTH_DRAIN_AMOUNT
+            }
         }
     }
 
@@ -159,6 +236,9 @@ class Inyaksimulator : JavaPlugin() {
 
         //워프
         WarpManager.setUp()
+
+        //로어 메커니즘
+        loreMechanism()
     }
 
     override fun onDisable() {

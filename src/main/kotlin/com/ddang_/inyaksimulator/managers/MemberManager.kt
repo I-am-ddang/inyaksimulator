@@ -1,5 +1,6 @@
 package com.ddang_.inyaksimulator.managers
 
+import com.ddang_.inyaksimulator.objects.LoreStat
 import com.ddang_.inyaksimulator.objects.Member
 import org.bukkit.entity.Player
 
@@ -13,7 +14,11 @@ class MemberManager {
             Member(
                 p.name,
                 -1,
-                null
+                null,
+
+                LoreStat(
+                    0, 0, 0, 0, 0
+                )
             )
         }
 

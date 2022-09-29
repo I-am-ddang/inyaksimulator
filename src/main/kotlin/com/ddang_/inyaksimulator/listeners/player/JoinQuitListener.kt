@@ -1,6 +1,7 @@
 package com.ddang_.inyaksimulator.listeners.player
 
 import com.ddang_.inyaksimulator.managers.MemberManager
+import com.ddang_.inyaksimulator.managers.ScoreboardManager
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -13,6 +14,8 @@ class JoinQuitListener: Listener {
         val p = e.player
 
         MemberManager.set(p)
+
+        ScoreboardManager.registerHealth(p)
     }
 
     @EventHandler

@@ -18,6 +18,18 @@ class ConfigManager {
             config.addDefault("Message.spawn.cancel.playerDamage", "  §c§l스폰 이동 §f피격을 받아 스폰 이동이 끊겼습니다.")
             config.addDefault("Message.spawn.cancel.tooFar", "  §c§l스폰 이동 §f이동 요청 위치에서 너무 멀어져 스폰 이동이 끊겼습니다.")
 
+            config.addDefault("Message.info.title", "§6§l          정보 확인 §f: §6%playerName%")
+            config.addDefault("Message.info.helmetName", "§f  투구: §7%itemName%")
+            config.addDefault("Message.info.chestplateName", "§f  흉갑: §7%itemName%")
+            config.addDefault("Message.info.leggingsName", "§f  각반: §7%itemName%")
+            config.addDefault("Message.info.bootsName", "§f  부츠: §7%itemName%")
+            config.addDefault("Message.info.swordName", "§f  검: §7%itemName%")
+
+            config.addDefault("Message.info.totalStatTop", "§f  공격력 | 방어력 | 체력 | 흡혈률 | 흡혈량 ")
+            config.addDefault("Message.info.totalStatBelow", "§f  %attack% | %defence% | %health% | %drainChance% | %drainAmount%")
+
+            config.addDefault("UI.health.belowNametag", "§c❤")
+
             config.addDefault("Spawn.goTime", "5")
 
             config.addDefault("Loc.spawn.world", "world")
