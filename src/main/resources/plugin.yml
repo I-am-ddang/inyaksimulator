@@ -12,7 +12,7 @@ commands:
   gm:
     description: gamemode change command
     permission: inyak.gm
-  info:
+  i:
     description: get player's info command
   s:
     description: tp target to me command
@@ -23,6 +23,7 @@ commands:
     description: spawn command
   tp:
     description: tp to target command
+    permission: inyak.tp
   warp:
     description: warp command
     permission: inyak.warp

@@ -141,7 +141,7 @@ class Inyaksimulator : JavaPlugin() {
         //명령어 등록
         getCommand("fix")?.executor = FixCommand()
         getCommand("gm")?.executor = GMCommand()
-        getCommand("info")?.executor = InfoComand()
+        getCommand("i")?.executor = InfoComand()
         getCommand("s")?.executor = SCommand()
         getCommand("setspawn")?.executor = SetSpawnCommand()
         getCommand("spawn")?.executor = SpawnCommand()

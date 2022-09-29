@@ -53,7 +53,5 @@ class SetwarpCommand: CommandExecutor {
                 return false
             }
         }
-
-        return false
     }
 }
