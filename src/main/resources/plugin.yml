@@ -1,5 +1,5 @@
 name: InyakSimulator
-version: Alpha-0.0.1
+version: Beta-0.0.1
 main: com.ddang_.inyaksimulator.Inyaksimulator
 authors: [ DDang_ ]
 description: Minecraft inseangyaktal (life looting, like faction) main system for 1.12.2 bukkit server

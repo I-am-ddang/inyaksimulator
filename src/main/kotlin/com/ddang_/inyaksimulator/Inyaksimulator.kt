@@ -12,6 +12,7 @@ import com.ddang_.inyaksimulator.managers.WarpManager
 import com.ddang_.inyaksimulator.objects.GameConfig
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
@@ -91,7 +92,7 @@ class Inyaksimulator : JavaPlugin() {
                 var STAT_HEALTH_DRAIN_AMOUNT = 0
 
                 for (item in affectedLoreStatList) {
-                    val lore = item.itemMeta?.lore ?: continue
+                    val lore = item?.itemMeta?.lore ?: continue
 
                     for (line in lore) {
                         if (line.contains("공격력")) {
@@ -141,6 +142,9 @@ class Inyaksimulator : JavaPlugin() {
                 m.loreStat.moreHealth = STAT_MORE_HEALTH
                 m.loreStat.healthDrainChance = STAT_HEALTH_DRAIN_CHANGE
                 m.loreStat.healthDrainAmount = STAT_HEALTH_DRAIN_AMOUNT
+
+                val maxHealth = it.getAttribute(Attribute.GENERIC_MAX_HEALTH).defaultValue
+                it.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue = maxHealth + STAT_MORE_HEALTH
             }
         }
     }
