@@ -5,10 +5,7 @@ import com.ddang_.inyaksimulator.listeners.DamageByListener
 import com.ddang_.inyaksimulator.listeners.inventory.ClickListener
 import com.ddang_.inyaksimulator.listeners.player.DamageListener
 import com.ddang_.inyaksimulator.listeners.player.JoinQuitListener
-import com.ddang_.inyaksimulator.managers.ConfigManager
-import com.ddang_.inyaksimulator.managers.GameConfigManager
-import com.ddang_.inyaksimulator.managers.MemberManager
-import com.ddang_.inyaksimulator.managers.WarpManager
+import com.ddang_.inyaksimulator.managers.*
 import com.ddang_.inyaksimulator.objects.GameConfig
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -18,6 +15,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitScheduler
+import org.bukkit.scoreboard.Scoreboard
 
 class Inyaksimulator : JavaPlugin() {
 
@@ -45,6 +43,8 @@ class Inyaksimulator : JavaPlugin() {
             private set
         lateinit var players: MutableCollection<out Player>
             private set
+        lateinit var board: Scoreboard
+            private set
 
         lateinit var gameConfig: GameConfig
             private set
@@ -61,6 +61,13 @@ class Inyaksimulator : JavaPlugin() {
     private fun saveMembers() {
         players.forEach {
             MemberManager.save(it)
+        }
+    }
+
+    //스코어보드
+    private fun registerPlayersHealth() {
+        players.forEach {
+            ScoreboardManager.registerHealth(it)
         }
     }
 
@@ -204,12 +211,12 @@ class Inyaksimulator : JavaPlugin() {
         players = server.onlinePlayers
         instance = this
         scheduler = server.scheduler
+        board = Bukkit.getScoreboardManager().newScoreboard
 
         //콘피그
         ConfigManager.set()
 
         //추가 인스턴스 변수
-
         gameConfig = GameConfigManager.set()
 
         //이벤트 리스너를 서버에 등록합니다.
@@ -243,6 +250,9 @@ class Inyaksimulator : JavaPlugin() {
 
         //로어 메커니즘
         loreMechanism()
+
+        //체력 표기 등록
+        registerPlayersHealth()
     }
 
     override fun onDisable() {
