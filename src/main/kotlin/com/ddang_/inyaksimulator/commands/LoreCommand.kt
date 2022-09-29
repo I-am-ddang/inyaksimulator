@@ -1,5 +1,6 @@
 package com.ddang_.inyaksimulator.commands
 
+import com.ddang_.inyaksimulator.Inyaksimulator
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -7,6 +8,21 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class LoreCommand: CommandExecutor {
+
+    companion object {
+        fun sendHelpCommand(p: Player) {
+            p.sendMessage("")
+            p.sendMessage("§6§l  로어 설정 §f/lore 추가 <값>")
+            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어에 추가 로어를 한 줄 더 적습니다.")
+            p.sendMessage("§6§l  로어 설정 §f/lore 삭제 <줄>")
+            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어 중 <줄> 에 있는 값을 제거합니다.")
+            p.sendMessage("§6§l  로어 설정 §f/lore 수정 <줄> <값>")
+            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어에 특정 <줄> 번째의 값을 <값>으로 바꿉니다.")
+            p.sendMessage("§6§l  로어 설정 §f/lore 프리셋 <공격력> <방어력> <체력> <흡혈률> <흡혈량>")
+            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템에 로어 스탯 프리셋을 적용합니다.")
+        }
+    }
+
     override fun onCommand(
         sender: CommandSender?,
         command: Command?,
@@ -24,13 +40,7 @@ class LoreCommand: CommandExecutor {
 
         if (arg.isEmpty()) {
 
-            p.sendMessage("")
-            p.sendMessage("§6§l  로어 설정 §f/lore 추가 <값>")
-            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어에 추가 로어를 한 줄 더 적습니다.")
-            p.sendMessage("§6§l  로어 설정 §f/lore 삭제 <줄>")
-            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어 중 <줄> 에 있는 값을 제거합니다.")
-            p.sendMessage("§6§l  로어 설정 §f/lore 수정 <줄> <값>")
-            p.sendMessage("§6§l  로어 설정 §7들고 있는 아이템의 로어에 특정 <줄> 번째의 값을 <값>으로 바꿉니다.")
+            sendHelpCommand(p)
 
             return false
         }
@@ -53,14 +63,12 @@ class LoreCommand: CommandExecutor {
                     p.sendMessage("§c§l  로어 설정 §f명령어가 완전하지 않습니다. §7/lore 수정 <줄> <값>")
                     return false
                 }
-                else -> {
+                "프리셋" -> {
                     p.sendMessage("")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 추가 <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 추가 로어를 한 줄 더 적습니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 삭제 <줄>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어 중 <줄> 에 있는 값을 제거합니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 수정 <줄> <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 특정 <줄> 번째의 값을 <값>으로 바꿉니다.")
+                    p.sendMessage("§c§l  로어 설정 §f명령어가 완전하지 않습니다. §7/lore 프리셋 <공격력> <방어력> <체력> <흡혈률> <흡혈량>")
+                }
+                else -> {
+                    sendHelpCommand(p)
                     return false
                 }
             }
@@ -161,17 +169,12 @@ class LoreCommand: CommandExecutor {
                     return false
                 }
                 else -> {
-                    p.sendMessage("")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 추가 <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 추가 로어를 한 줄 더 적습니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 삭제 <줄>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어 중 <줄> 에 있는 값을 제거합니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 수정 <줄> <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 특정 <줄> 번째의 값을 <값>으로 바꿉니다.")
+                    sendHelpCommand(p)
                     return false
                 }
             }
         } else if (arg.size > 2) {
+
             when (arg[0]) {
                 "추가" -> {
 
@@ -287,14 +290,75 @@ class LoreCommand: CommandExecutor {
                     p.sendMessage("§a§l  로어 설정 §7-> 줄: $line ->  $value")
                     return false
                 }
+                "프리셋" -> {
+                    if (arg.size == 6) {
+
+                        if (p.inventory.itemInMainHand.type == Material.AIR) {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f아이템을 들고 있어야 합니다. §7/lore 수정 <줄> <값>")
+                            return false
+                        }
+
+                        val attack = arg[1].toIntOrNull() ?: kotlin.run {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f<공격력> 에는 숫자(정수: 소수점 x)가 들어가야합니다.")
+                            return false
+                        }
+
+                        val defence = arg[2].toIntOrNull() ?: kotlin.run {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f<공격력> 에는 숫자(정수: 소수점 x)가 들어가야합니다.")
+                            return false
+                        }
+
+                        val health = arg[3].toIntOrNull() ?: kotlin.run {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f<공격력> 에는 숫자(정수: 소수점 x)가 들어가야합니다.")
+                            return false
+                        }
+
+                        val drainChance = arg[4].toIntOrNull() ?: kotlin.run {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f<공격력> 에는 숫자(정수: 소수점 x)가 들어가야합니다.")
+                            return false
+                        }
+
+                        val drainAmount = arg[5].toIntOrNull() ?: kotlin.run {
+                            p.sendMessage("")
+                            p.sendMessage("§c§l  로어 설정 §f<공격력> 에는 숫자(정수: 소수점 x)가 들어가야합니다.")
+                            return false
+                        }
+
+                        val item = p.inventory.itemInMainHand
+                        val meta = item.itemMeta
+                        val newLore = mutableListOf<String>()
+
+                        val presetUI = Inyaksimulator.instance.config.getString("UI.loreStat.preset")
+                            .replace("%attack%", "$attack")
+                            .replace("%defence%", "$defence")
+                            .replace("%health%", "$health")
+                            .replace("%drainChance%", "$drainChance")
+                            .replace("%drainAmount%", "$drainAmount")
+
+                        val split = presetUI.split("%줄바꿈%")
+                        for (splitLine in split) {
+                            newLore.add("§f${splitLine}")
+                        }
+
+                        meta.lore = newLore
+                        item.itemMeta = meta
+
+                        return false
+                    } else {
+
+                        p.sendMessage("")
+                        p.sendMessage("§c§l  로어 설정 §f명령어가 불완전합니다. §7/lore 프리셋 <공격력> <방어력> <체력> <흡혈률> <흡혈량>")
+
+                        return false
+                    }
+                }
                 else -> {
-                    p.sendMessage("")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 추가 <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 추가 로어를 한 줄 더 적습니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 삭제 <줄>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어 중 <줄> 에 있는 값을 제거합니다.")
-                    p.sendMessage("§c§l  로어 설정 §f/lore 수정 <줄> <값>")
-                    p.sendMessage("§c§l  로어 설정 §7들고 있는 아이템의 로어에 특정 <줄> 번째의 값을 <값>으로 바꿉니다.")
+                    sendHelpCommand(p)
                     return false
                 }
             }

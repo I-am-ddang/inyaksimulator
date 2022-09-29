@@ -36,3 +36,5 @@ commands:
   lore:
     description: lore set command
     permission: inyak.lore
+    aliases: 
+      - 로어

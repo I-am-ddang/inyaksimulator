@@ -28,6 +28,8 @@ class ConfigManager {
             config.addDefault("Message.info.totalStatTop", "§f  공격력 | 방어력 | 체력 | 흡혈률 | 흡혈량 ")
             config.addDefault("Message.info.totalStatBelow", "§f  %attack% | %defence% | %health% | %drainChance% | %drainAmount%")
 
+            config.addDefault("UI.loreStat.preset", "%줄바꿈% 공격력: %attack% %줄바꿈% 방어력: %defence% %줄바꿈% 체력: %health% %줄바꿈% 흡혈률: %drainChance% %줄바꿈% 흡혈량: %drainAmount%")
+
             config.addDefault("UI.health.belowNametag", "§c❤")
 
             config.addDefault("Keyword.InfiniteDurability", "내구도 무한")
