@@ -42,5 +42,17 @@ class ItemUtil {
         fun checkRepairable(item: ItemStack): Boolean {
             return repairableList.contains(item.type)
         }
+
+        fun giveUnbreakableIfAbsent(item: ItemStack): ItemStack {
+
+            val meta = item.itemMeta.apply {
+                if (!isUnbreakable) {
+                    isUnbreakable = true
+                }
+            }
+            item.itemMeta = meta
+
+            return item
+        }
     }
 }

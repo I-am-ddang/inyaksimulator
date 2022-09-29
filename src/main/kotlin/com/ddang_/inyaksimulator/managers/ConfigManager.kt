@@ -30,6 +30,8 @@ class ConfigManager {
 
             config.addDefault("UI.health.belowNametag", "§c❤")
 
+            config.addDefault("Keyword.InfiniteDurability", "내구도 무한")
+
             config.addDefault("Spawn.goTime", "5")
 
             config.addDefault("Loc.spawn.world", "world")
