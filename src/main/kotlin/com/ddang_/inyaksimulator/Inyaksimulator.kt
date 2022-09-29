@@ -64,6 +64,13 @@ class Inyaksimulator : JavaPlugin() {
         }
     }
 
+    //플레이어 리스트
+    private fun setPlayerLists() {
+        players.forEach {
+            PlayerListManager.set(it)
+        }
+    }
+
     //스코어보드
     private fun registerPlayersHealth() {
         players.forEach {
@@ -253,6 +260,9 @@ class Inyaksimulator : JavaPlugin() {
 
         //체력 표기 등록
         registerPlayersHealth()
+
+        //플레이어 리스트
+        setPlayerLists()
     }
 
     override fun onDisable() {
